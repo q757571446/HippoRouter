@@ -89,4 +89,46 @@ fragment://login/:s{name}/:i{password}?id=123456#wrap | LoginFragment
     getIntent().getStringExtra("username");
 ```
 
+
+###扩展
+####1. 自定义MyRouter继承Router处理跳转请求
+```
+    public class MyRouter extends Router{
+        /**
+         * @return MyRouter需要处理的scheme，例如myrouter://home
+         */
+        @Override
+        public String getDefaultScheme() {
+            return "myrouter";
+        }
+    
+        /**
+         * 处理跳转请求
+         * @param request 封装了跳转url参数及上下文
+         * @return 是否跳转成功
+         */
+        @Override
+        public boolean open(RouterRequest request) {
+            return false;
+        }
+    }
+```
+
+####2. 注册自定义的MyRouter
+```
+    RouterManager.getSingleton().registerRouter(new RouterFactory() {
+        @Override
+        public Router buildInstance() {
+            return new MyRouter();
+        }
+
+        @Override
+        public Map<String, Class> getRouterTable() {
+            Map<String, Class> map = new HashMap<>();
+            //MyRouter需要处理的路由表
+            return map;
+        }
+    });
+```
+
 ####详细使用请看Demo
