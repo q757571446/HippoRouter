@@ -3,7 +3,7 @@ package com.example.hipporouter;
 import android.view.View;
 
 import com.example.hipporouter.pager.base.BaseActivity;
-import com.example.library.router.request.impl.RouterRequest;
+import com.example.library.router.request.impl.Route;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -22,11 +22,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_activity:
-                RouterRequest.from(this,"activity://content")
+                Route.from(this,"activity://content")
                         .open();
                 break;
             case R.id.btn_fragment:
-                RouterRequest.from(this,"fragment://content")
+                Route.from(this,"fragment://content")
                         .open();
                 break;
         }

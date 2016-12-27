@@ -1,20 +1,13 @@
 package com.example.library.router;
 
-import android.app.Application;
-
 import com.example.library.router.factory.ActivityRouterFactory;
 import com.example.library.router.factory.FragmentRouterFactory;
-import com.example.library.router.factory.RouterBinder;
-import com.example.library.router.request.impl.RouterRequest;
 import com.example.library.router.router.Router;
 import com.example.library.router.factory.RouterFactory;
 import com.example.library.router.router.impl.ActivityRouter;
 import com.example.library.router.router.impl.FragmentRouter;
-import com.example.library.router.utils.UrlUtils;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +16,7 @@ import timber.log.Timber;
 
 /**
  * Created by kevin on 16-11-16.
- * deal the manipulation of RouterRequest with the help of IRouter
+ * deal the manipulation of Route with the help of IRouter
  */
 
 public class RouterManager {
@@ -53,7 +46,7 @@ public class RouterManager {
             mRouters.removeAll(duplicateRouters);
             mRouters.add(router);
         } else {
-            Timber.e(new NullPointerException("The RouterRequest" +
+            Timber.e(new NullPointerException("The Route" +
                     "is null" +
                     ""), "");
         }

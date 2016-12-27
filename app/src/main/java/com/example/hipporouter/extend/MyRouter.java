@@ -1,6 +1,6 @@
 package com.example.hipporouter.extend;
 
-import com.example.library.router.request.impl.RouterRequest;
+import com.example.library.router.request.impl.Route;
 import com.example.library.router.router.Router;
 
 /**
@@ -22,7 +22,7 @@ public class MyRouter extends Router{
      * @return 是否跳转成功
      */
     @Override
-    public boolean open(RouterRequest request) {
+    public boolean open(Route request) {
         return false;
     }
 }

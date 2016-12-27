@@ -4,22 +4,18 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.library.router.exception.RouteNotFoundException;
-import com.example.library.router.request.impl.RouterRequest;
+import com.example.library.router.request.impl.Route;
 import com.example.library.router.router.Router;
 import com.example.library.router.utils.UrlUtils;
 
-import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
 
 import static com.example.library.router.router.impl.ActivityRouter.DEFAULT_ACTIVITY_SCHEME;
-import static com.example.library.router.utils.UrlUtils.getHost;
-import static com.example.library.router.utils.UrlUtils.getPathSegments;
 
 /**
  * Created by kevin on 16-11-17.
@@ -31,7 +27,7 @@ public class FragmentRouter extends Router{
     public static final String DEFAULT_FRAGMENT_SCHEME = "fragment";
 
     @Override
-    public boolean open(RouterRequest request) {
+    public boolean open(Route request) {
         try {
             open(request.getContext(), request);
             return true;
@@ -42,7 +38,7 @@ public class FragmentRouter extends Router{
     }
 
 
-    private void open(Context context, RouterRequest request) throws RouteNotFoundException {
+    private void open(Context context, Route request) throws RouteNotFoundException {
         Intent intent = match(context,request);
         if (intent == null) {
             throw new RouteNotFoundException(request.getUrl());
@@ -59,7 +55,7 @@ public class FragmentRouter extends Router{
         }
     }
 
-    private Intent match(Context context, RouterRequest request) {
+    private Intent match(Context context, Route request) {
         Class matchedFragment = findMatchClass(request);
         Intent intent = new Intent(context, getWrapActivity(matchedRoute));
         intent = setKeyValueInThePath(matchedRoute, request.getUrl(), intent);

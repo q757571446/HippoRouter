@@ -1,20 +1,18 @@
 package com.example.library.router.request.impl;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.example.library.router.RouterManager;
+import com.example.library.router.RouterEngine;
 import com.example.library.router.request.Request;
-import com.example.library.router.router.Router;
 
 /**
  * Created by kevin on 16-11-16.
  */
 
-public class RouterRequest extends Request {
+public class Route extends Request {
 
     private int mFlags;
     private Bundle mBundle;
@@ -22,7 +20,7 @@ public class RouterRequest extends Request {
     private int mAnimationOut;
     private Context mContext;
 
-    private RouterRequest(Context context, int flags, Bundle bundle, int animationIn, int animationOut, String url) {
+    private Route(Context context, int flags, Bundle bundle, int animationIn, int animationOut, String url) {
         super(url);
         this.mContext = context;
         this.mBundle = bundle;
@@ -133,9 +131,8 @@ public class RouterRequest extends Request {
         }
 
         public boolean open() {
-            RouterRequest request = new RouterRequest(mContext,mFlags,mBundle,mInAnimation,mOutAnimation,mUrl);
-            Router router = RouterManager.getSingleton().getRouter(mUrl);
-            return router.open(request);
+            Route route = new Route(mContext, mFlags, mBundle, mInAnimation, mOutAnimation, mUrl);
+            return RouterEngine.getSingleton().process(route);
         }
     }
 }
