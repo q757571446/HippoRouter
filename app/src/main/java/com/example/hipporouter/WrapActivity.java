@@ -6,8 +6,6 @@ import android.util.Log;
 
 import com.example.hipporouter.pager.base.BaseActivity;
 
-import static com.example.library.router.router.impl.FragmentRouter.FRAGMENT_KEY_URL;
-
 /**
  * Created by Kevin on 2016/11/26.
  */
@@ -27,13 +25,13 @@ public class WrapActivity extends BaseActivity{
     }
 
     private void initFragmentFromIntent() {
-        String clazzPath = getIntent().getStringExtra(FRAGMENT_KEY_URL);
-        if (!TextUtils.isEmpty(clazzPath)) {
-            Fragment instantiate = getFragmentFromName(clazzPath);
-            replaceContainer(instantiate);
-        } else {
-            Log.e(TAG, "NO FRAGMENT ATTACH!");
-        }
+//        String clazzPath = getIntent().getStringExtra(FRAGMENT_KEY_URL);
+//        if (!TextUtils.isEmpty(clazzPath)) {
+//            Fragment instantiate = getFragmentFromName(clazzPath);
+//            replaceContainer(instantiate);
+//        } else {
+//            Log.e(TAG, "NO FRAGMENT ATTACH!");
+//        }
     }
 
     private void replaceContainer(Fragment instantiate) {

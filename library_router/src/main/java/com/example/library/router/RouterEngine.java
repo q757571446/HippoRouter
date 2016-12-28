@@ -1,15 +1,13 @@
 package com.example.library.router;
 
-import com.example.library.router.factory.ActivityRouterFactory;
 import com.example.library.router.factory.RouterFactory;
-import com.example.library.router.request.impl.Route;
-import com.example.library.router.router.Router;
+import com.example.library.router.router.impl.Request;
+import com.example.library.router.router.IRouter;
+import com.example.library.router.router.impl.Router;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import static com.example.library.router.router.IRouter.ROUTER_TABLE;
 
 /**
  * Created by Kevin on 2016/12/27.
@@ -19,7 +17,7 @@ public class RouterEngine {
 
     static final RouterEngine singleton = new RouterEngine();
 
-    static List<Router> mRouters ;
+    static List<IRouter> mRouters ;
 
     private RouterEngine(){
         mRouters = new LinkedList<>();
@@ -33,8 +31,8 @@ public class RouterEngine {
         if(router == null)
             throw new NullPointerException("the router you register is null");
         //first remove all the duplicate routers
-        List<Router> duplicateRouters = new ArrayList<>();
-        for(Router r : mRouters){
+        List<IRouter> duplicateRouters = new ArrayList<>();
+        for(IRouter r : mRouters){
             if(r.getClass().equals(router.getClass())){
                 duplicateRouters.add(r);
             }
@@ -43,24 +41,19 @@ public class RouterEngine {
         mRouters.add(router);
     }
 
-    public synchronized void registerActivityRouter(ActivityRouterFactory factory) {
-        registerRouter(factory);
-    }
-
     public synchronized void registerRouter(RouterFactory factory) {
         Router router = factory.buildInstance();
         router.init(factory);
         addRouter(router);
     }
 
-    public synchronized boolean process(Route route) {
-        Router router = getRouter(route.getUrl());
-        Map.Entry<String, Class> match = router.match(route);
-        return router.handle(match);
+    public synchronized boolean process(Request request) {
+        IRouter router = getRouter(request.getUrl());
+        return router.handle(request);
     }
 
-    private synchronized Router getRouter(String url) {
-        for (Router router : mRouters) {
+    private synchronized IRouter getRouter(String url) {
+        for (IRouter router : mRouters) {
             if (router.canHandle(url)) {
                 return router;
             }

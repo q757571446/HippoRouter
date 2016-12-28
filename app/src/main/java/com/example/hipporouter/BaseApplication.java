@@ -1,19 +1,12 @@
 package com.example.hipporouter;
 
+import android.app.Activity;
 import android.app.Application;
 
-import com.example.hipporouter.extend.MyRouter;
+import com.example.hipporouter.pager.AnnotatedActivity;
 import com.example.hipporouter.pager.ContentActivity;
-import com.example.hipporouter.pager.ContentFragment;
 import com.example.library.router.RouterEngine;
-import com.example.library.router.RouterManager;
-import com.example.library.router.factory.ActivityRouterFactory;
-import com.example.library.router.factory.FragmentRouterFactory;
-import com.example.library.router.factory.RouterFactory;
-import com.example.library.router.router.IRouter;
-import com.example.library.router.router.Router;
-
-import java.util.HashMap;
+import com.example.library.router.factory.impl.ActivityRouterFactory;
 import java.util.Map;
 
 /**
@@ -27,8 +20,9 @@ public class BaseApplication extends Application{
 
         RouterEngine.getSingleton().registerRouter(new ActivityRouterFactory() {
             @Override
-            public void put(Map<String, Class> tables) {
-
+            public void initialize(Map<String, Class<? extends Activity>> tables) {
+                tables.put("activity://content", ContentActivity.class);
+                tables.put("activity://content/annotated/:s{username}/:i{password}", AnnotatedActivity.class);
             }
         });
     }

@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.example.hipporouter.R;
 import com.example.hipporouter.pager.base.BaseActivity;
-import com.example.library.router.request.impl.Route;
+import com.example.library.router.router.impl.activity.ActivityRequest;
 import com.example.module.annotation.RouterMap;
 
 import java.util.UUID;
@@ -31,16 +31,16 @@ public class ContentActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_static_params_open:
-                Route.from(this,"activity://annotated/kevin/123456")
+                ActivityRequest.from(this,"activity://content/annotated/kevin/123456")
                         .open();
                 break;
             case R.id.btn_dynamic_params_open:
-                Route.from(this,"activity://annotated/kevin/123456")
+                ActivityRequest.from(this,"activity://content/annotated/kevin/123456")
                         .withParams("extra_id", UUID.randomUUID().toString())
                         .open();
                 break;
             case R.id.btn_animation_open:
-                Route.from(this,"activity://annotated/kevin/123456")
+                ActivityRequest.from(this,"activity://content/annotated/kevin/123456")
                         .withParams("extra_id", UUID.randomUUID().toString())
                         .withAnimation(R.anim.slide_in_bottom,0)
                         .open();

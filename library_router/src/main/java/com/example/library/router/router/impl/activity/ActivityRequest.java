@@ -1,4 +1,4 @@
-package com.example.library.router.request.impl;
+package com.example.library.router.router.impl.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,13 +6,13 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.example.library.router.RouterEngine;
-import com.example.library.router.request.Request;
+import com.example.library.router.router.impl.Request;
 
 /**
  * Created by kevin on 16-11-16.
  */
 
-public class Route extends Request {
+public class ActivityRequest extends Request {
 
     private int mFlags;
     private Bundle mBundle;
@@ -20,7 +20,7 @@ public class Route extends Request {
     private int mAnimationOut;
     private Context mContext;
 
-    private Route(Context context, int flags, Bundle bundle, int animationIn, int animationOut, String url) {
+    private ActivityRequest(Context context, int flags, Bundle bundle, int animationIn, int animationOut, String url) {
         super(url);
         this.mContext = context;
         this.mBundle = bundle;
@@ -131,7 +131,7 @@ public class Route extends Request {
         }
 
         public boolean open() {
-            Route route = new Route(mContext, mFlags, mBundle, mInAnimation, mOutAnimation, mUrl);
+            ActivityRequest route = new ActivityRequest(mContext, mFlags, mBundle, mInAnimation, mOutAnimation, mUrl);
             return RouterEngine.getSingleton().process(route);
         }
     }

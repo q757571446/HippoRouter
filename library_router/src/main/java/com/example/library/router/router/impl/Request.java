@@ -1,5 +1,6 @@
-package com.example.library.router.request;
+package com.example.library.router.router.impl;
 
+import com.example.library.router.router.IRequest;
 import com.example.library.router.utils.UrlUtils;
 
 import java.util.List;
@@ -27,8 +28,6 @@ public class Request implements IRequest {
         mQueryParameters = UrlUtils.getParameters(url);
     }
 
-
-
     @Override
     public String getUrl() {
         return mUrl;
@@ -43,7 +42,6 @@ public class Request implements IRequest {
     public String getHost() {
         return mHost;
     }
-
 
     @Override
     public int getPort() {

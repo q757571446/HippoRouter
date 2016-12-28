@@ -31,5 +31,5 @@ dependencies {
     compile libSupportAppcompat
 
     compile project(':library_router')
-    apt project(':module_compile')
+//    apt project(':module_compile')
 }
