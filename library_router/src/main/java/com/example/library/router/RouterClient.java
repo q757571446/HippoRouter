@@ -3,31 +3,35 @@ package com.example.library.router;
 import com.example.library.router.factory.RouterFactory;
 import com.example.library.router.router.impl.Request;
 import com.example.library.router.router.IRouter;
-import com.example.library.router.router.impl.Router;
+import com.example.library.router.router.impl.activity.ActivityRouter;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
+import static com.example.library.router.router.IRouter.ROUTER_TABLE;
 
 /**
  * Created by Kevin on 2016/12/27.
  */
 
-public class RouterEngine {
+public class RouterClient {
 
-    static final RouterEngine singleton = new RouterEngine();
+    static final RouterClient singleton = new RouterClient();
 
     static List<IRouter> mRouters ;
 
-    private RouterEngine(){
+    private RouterClient(){
         mRouters = new LinkedList<>();
+        //default add activity router
+        addRouter(new ActivityRouter());
     }
 
-    public static RouterEngine getSingleton(){
+    public static RouterClient getSingleton(){
         return singleton;
     }
 
-    private synchronized void addRouter(Router router){
+    private synchronized void addRouter(IRouter router){
         if(router == null)
             throw new NullPointerException("the router you register is null");
         //first remove all the duplicate routers
@@ -42,8 +46,8 @@ public class RouterEngine {
     }
 
     public synchronized void registerRouter(RouterFactory factory) {
-        Router router = factory.buildInstance();
-        router.init(factory);
+        IRouter router = factory.buildInstance();
+        factory.initialize(ROUTER_TABLE);
         addRouter(router);
     }
 

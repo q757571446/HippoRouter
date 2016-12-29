@@ -12,8 +12,9 @@ import java.util.Map;
 
 public class FragmentRouter extends Router<Fragment,FragmentRequest>{
 
+
     @Override
-    protected String getHandleScheme() {
+    protected String canHandle() {
         return "fragment";
     }
 

@@ -1,4 +1,4 @@
-package com.example.hipporouter;
+package com.example.library.annotation;
 
 import org.junit.Test;
 

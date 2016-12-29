@@ -25,15 +25,13 @@ import static com.example.library.router.utils.UrlUtils.getScheme;
 
 public class ActivityRouter extends Router<Activity,ActivityRequest> {
 
-    static final String SCHEME = "activity";
     static final String TAG = "ActivityRouter";
     public static final String ACTIVITY_KEY_URL = "key_and_activity_router_url";
     protected Context mContext;
 
-
     @Override
-    protected String getHandleScheme() {
-        return SCHEME;
+    protected String canHandle() {
+        return "activity";
     }
 
     @Override
@@ -80,21 +78,24 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
         List<String> givenPathSegs = getPathSegments(givenUrl);
         for (int i = 0; i < routePathSegs.size(); i++) {
             String seg = routePathSegs.get(i);
+            String inf = givenPathSegs.get(i);
             if (seg.startsWith(":")) {
                 int indexOfLeft = seg.indexOf("{");
                 int indexOfRight = seg.indexOf("}");
+                int indexOfValue = inf.indexOf(":");
                 String key = seg.substring(indexOfLeft + 1, indexOfRight);
+                String val = inf.substring(indexOfValue+1);
                 char typeChar = seg.charAt(1);
                 switch (typeChar) {
                     //interger type
                     case 'i':
                         try {
-                            int value = Integer.parseInt(givenPathSegs.get(i));
+                            int value = Integer.parseInt(val);
                             intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析整形类型失败 " + givenPathSegs.get(i), e);
+                            Log.e(TAG, "解析整形类型失败 " + val, e);
                             if (BuildConfig.DEBUG) {
-                                throw new InvalidValueTypeException(givenUrl, givenPathSegs.get(i));
+                                throw new InvalidValueTypeException(givenUrl, val);
                             } else {
                                 //如果是在release情况下则给一个默认值
                                 intent.putExtra(key, 0);
@@ -104,12 +105,12 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                     case 'f':
                         //float type
                         try {
-                            float value = Float.parseFloat(givenPathSegs.get(i));
+                            float value = Float.parseFloat(val);
                             intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析浮点类型失败 " + givenPathSegs.get(i), e);
+                            Log.e(TAG, "解析浮点类型失败 " + val, e);
                             if (BuildConfig.DEBUG) {
-                                throw new InvalidValueTypeException(givenUrl, givenPathSegs.get(i));
+                                throw new InvalidValueTypeException(givenUrl, val);
                             } else {
                                 intent.putExtra(key, 0f);
                             }
@@ -118,12 +119,12 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                     case 'l':
                         //long type
                         try {
-                            long value = Long.parseLong(givenPathSegs.get(i));
+                            long value = Long.parseLong(val);
                             intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析长整形失败 " + givenPathSegs.get(i), e);
+                            Log.e(TAG, "解析长整形失败 " + val, e);
                             if (BuildConfig.DEBUG) {
-                                throw new InvalidValueTypeException(givenUrl, givenPathSegs.get(i));
+                                throw new InvalidValueTypeException(givenUrl, val);
                             } else {
                                 intent.putExtra(key, 0l);
                             }
@@ -131,12 +132,12 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                         break;
                     case 'd':
                         try {
-                            double value = Double.parseDouble(givenPathSegs.get(i));
+                            double value = Double.parseDouble(val);
                             intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析double类型失败 " + givenPathSegs.get(i), e);
+                            Log.e(TAG, "解析double类型失败 " + val, e);
                             if (BuildConfig.DEBUG) {
-                                throw new InvalidValueTypeException(givenUrl, givenPathSegs.get(i));
+                                throw new InvalidValueTypeException(givenUrl, val);
                             } else {
                                 intent.putExtra(key, 0d);
                             }
@@ -144,11 +145,12 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                         break;
                     case 'c':
                         try {
-                            char value = givenPathSegs.get(i).charAt(0);
+                            char value = val.charAt(0);
+                            intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析Character类型失败" + givenPathSegs.get(i), e);
+                            Log.e(TAG, "解析Character类型失败" + val, e);
                             if (BuildConfig.DEBUG) {
-                                throw new InvalidValueTypeException(givenUrl, givenPathSegs.get(i));
+                                throw new InvalidValueTypeException(givenUrl, val);
                             } else {
                                 intent.putExtra(key, ' ');
                             }
@@ -156,7 +158,7 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                         break;
                     case 's':
                     default:
-                        intent.putExtra(key, givenPathSegs.get(i));
+                        intent.putExtra(key, val);
                 }
             }
 

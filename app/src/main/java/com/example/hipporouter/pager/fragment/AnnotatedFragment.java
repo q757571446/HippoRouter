@@ -1,12 +1,11 @@
-package com.example.hipporouter.pager;
+package com.example.hipporouter.pager.fragment;
 
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.hipporouter.R;
 import com.example.hipporouter.pager.base.BaseFragment;
-import com.example.module.annotation.RouterMap;
+import com.example.library.annotation.RouterMap;
 
 /**
  * Created by Kevin on 2016/11/26.

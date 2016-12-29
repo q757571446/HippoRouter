@@ -1,20 +1,18 @@
-package com.example.module.compile;
+package com.example.library.compile;
 
-import com.example.module.annotation.RouterMap;
-import com.example.module.compile.exception.TargetErrorException;
+import com.example.library.annotation.RouterMap;
+import com.example.library.compile.exception.TargetErrorException;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.WildcardTypeName;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
@@ -31,6 +29,9 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
 
+import static com.example.library.annotation.uri.RouterUtils.getGenerateClassName;
+import static com.example.library.annotation.uri.RouterUtils.getGeneratePackageName;
+
 
 @AutoService(Processor.class)
 public class RouterProcessor extends AbstractProcessor{
@@ -39,7 +40,6 @@ public class RouterProcessor extends AbstractProcessor{
     private Elements elementUtils;
     private boolean writerRoundDone;
 
-    public static final String SUFFIX = "_RouterBinding";
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -83,7 +83,7 @@ public class RouterProcessor extends AbstractProcessor{
 
             if (!elements.isEmpty()) {
                 mMessager.printMessage(Diagnostic.Kind.NOTE,"processing RouterMap class build...");
-                generateRouterFactory(elements);
+                generateInitializer(elements);
             } else {
                 mMessager.printMessage(Diagnostic.Kind.WARNING, "No RouterMap annotations found");
             }
@@ -98,81 +98,45 @@ public class RouterProcessor extends AbstractProcessor{
     }
 
 
-    private void generateRouterFactory(Set<? extends Element> elements) throws IOException {
+    private void generateInitializer(Set<? extends Element> elements) throws IOException {
         for (Element element : elements) {
-            createRouterFactory("com.example.router","com.example.library.router.factory.RouterBinder", (TypeElement) element);
+            writeInitializer((TypeElement) element);
         }
     }
 
-    private void createRouterFactory(String packageName, String superClazzPath, TypeElement element) throws IOException {
+    private void writeInitializer(TypeElement element) throws IOException {
         if(element.getKind() != ElementKind.CLASS){
             throw new TargetErrorException();
         }
-        ParameterizedTypeName mapTypeName = ParameterizedTypeName
-                .get(ClassName.get(Map.class), ClassName.get(String.class), ClassName.get(Class.class));
-        ParameterizedTypeName hashMapTypeName = ParameterizedTypeName
-                .get(ClassName.get(HashMap.class), ClassName.get(String.class), ClassName.get(Class.class));
 
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("getRouterTable")
+        TypeElement initializer = elementUtils.getTypeElement("com.example.library.router.factory.RouterInitializer");
+        ParameterizedTypeName superInterface = ParameterizedTypeName.get(ClassName.get(initializer), ClassName.OBJECT);
+
+        ParameterizedTypeName mapTypeName = ParameterizedTypeName
+                .get(ClassName.get(Map.class), ClassName.get(String.class), ParameterizedTypeName.get(ClassName.get(Class.class), WildcardTypeName.subtypeOf(Object.class)));
+
+        ParameterSpec tables = ParameterSpec.builder(mapTypeName, "tables")
+                .build();
+
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("initialize")
                 .addAnnotation(Override.class) //add ann
                 .addModifiers(Modifier.PUBLIC)
-                .returns(mapTypeName);
+                .addParameter(tables);
 
         RouterMap router = element.getAnnotation(RouterMap.class);//get annotation in activity
         String routerUrl = router.value();//get routerurl
         if(routerUrl != null){
-            methodBuilder.addStatement("$T router = new $T()",mapTypeName,hashMapTypeName);
-            methodBuilder.addStatement("router.put($S, $T.class)", routerUrl, ClassName.get(element));
-            methodBuilder.addStatement("return router");
+            methodBuilder.addStatement("tables.put($S, $T.class)", routerUrl, ClassName.get(element));
         }
 
-        TypeElement routerInitializerType = elementUtils.getTypeElement(superClazzPath);
         String generateClassName = getGenerateClassName(routerUrl);
         TypeSpec clazz = TypeSpec.classBuilder(generateClassName)
-                .addSuperinterface(ClassName.get(routerInitializerType))
+                .addSuperinterface(superInterface)
                 .addModifiers(Modifier.PUBLIC)
                 .addMethod(methodBuilder.build())
                 .build();
-        JavaFile javaFile = JavaFile.builder(packageName, clazz).build();
+        JavaFile javaFile = JavaFile.builder(getGeneratePackageName(routerUrl), clazz).build();
         javaFile.writeTo(mFiler);
-    }
-
-//    activity://simple/:s{name}
-    private String getGenerateClassName(String url) {
-        String scheme = getScheme(url);
-
-        String host = getHost(url);
-        return new StringBuffer()
-                .append(toUpperCaseFirstOne(scheme))
-                .append(toUpperCaseFirstOne(host))
-                .append(SUFFIX)
-                .toString();
-    }
-
-    private String getScheme(String url) {
-        return url.substring(0, url.indexOf(":"));
-    }
-
-
-
-    private String getHost(String url) {
-        String replace = url.replace("//", "");
-        mMessager.printMessage(Diagnostic.Kind.NOTE,"generate router bind class>>>"+replace);
-        if (replace.indexOf("/") != -1) {
-            return replace.substring(replace.indexOf(":") + 1, replace.indexOf("/"));
-        } else if (replace.indexOf("#") != -1) {
-            return replace.substring(replace.indexOf(":") + 1,replace.indexOf("#"));
-        } else {
-            return replace.substring(replace.indexOf(":") + 1);
-        }
-    }
-
-    //首字母转大写
-    public static String toUpperCaseFirstOne(String s){
-        if(Character.isUpperCase(s.charAt(0)))
-            return s;
-        else
-            return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
     }
 
 }

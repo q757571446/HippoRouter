@@ -16,13 +16,13 @@
 
     <Button
         android:id="@+id/btn_static_params_open"
-        android:text="Params_Static"
+        android:text="Static"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btn_dynamic_params_open"
-        android:text="Params_Dynamic"
+        android:text="Dynamic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

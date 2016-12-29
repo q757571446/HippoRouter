@@ -3,10 +3,11 @@ package com.example.hipporouter;
 import android.app.Activity;
 import android.app.Application;
 
-import com.example.hipporouter.pager.AnnotatedActivity;
-import com.example.hipporouter.pager.ContentActivity;
-import com.example.library.router.RouterEngine;
+import com.example.hipporouter.pager.MainActivity;
+import com.example.library.router.RouterClient;
 import com.example.library.router.factory.impl.ActivityRouterFactory;
+
+
 import java.util.Map;
 
 /**
@@ -18,12 +19,12 @@ public class BaseApplication extends Application{
     public void onCreate() {
         super.onCreate();
 
-        RouterEngine.getSingleton().registerRouter(new ActivityRouterFactory() {
+        RouterClient.getSingleton().registerRouter(new ActivityRouterFactory() {
             @Override
             public void initialize(Map<String, Class<? extends Activity>> tables) {
-                tables.put("activity://content", ContentActivity.class);
-                tables.put("activity://content/annotated/:s{username}/:i{password}", AnnotatedActivity.class);
+                tables.put("activity://main", MainActivity.class);
             }
         });
+
     }
 }

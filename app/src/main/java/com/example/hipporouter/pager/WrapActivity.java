@@ -1,15 +1,18 @@
-package com.example.hipporouter;
+package com.example.hipporouter.pager;
 
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.hipporouter.R;
 import com.example.hipporouter.pager.base.BaseActivity;
+import com.example.library.annotation.RouterMap;
 
 /**
  * Created by Kevin on 2016/11/26.
  */
 
+@RouterMap("activity://wrap/:s{fragment}")
 public class WrapActivity extends BaseActivity{
     private static final String TAG = "WrapActivity";
 

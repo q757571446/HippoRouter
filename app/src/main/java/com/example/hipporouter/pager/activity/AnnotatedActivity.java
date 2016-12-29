@@ -1,22 +1,23 @@
-package com.example.hipporouter.pager;
+package com.example.hipporouter.pager.activity;
 
-import android.view.View;
+import android.content.Intent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hipporouter.R;
 import com.example.hipporouter.pager.base.BaseActivity;
-import com.example.module.annotation.RouterMap;
+import com.example.library.annotation.RouterMap;
 
 /**
  * Created by Kevin on 2016/11/26.
  */
-@RouterMap("activity://annotated/:s{username}/:i{password}")
+@RouterMap("activity://content/annotated/:s{username}/:i{password}")
 public class AnnotatedActivity extends BaseActivity{
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_annotation;
     }
+
     @Override
     protected void initWidget() {
         super.initWidget();

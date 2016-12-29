@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.example.library.router.RouterEngine;
+import com.example.library.router.RouterClient;
 import com.example.library.router.router.impl.Request;
 
 /**
@@ -132,7 +132,7 @@ public class ActivityRequest extends Request {
 
         public boolean open() {
             ActivityRequest route = new ActivityRequest(mContext, mFlags, mBundle, mInAnimation, mOutAnimation, mUrl);
-            return RouterEngine.getSingleton().process(route);
+            return RouterClient.getSingleton().process(route);
         }
     }
 }

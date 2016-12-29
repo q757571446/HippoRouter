@@ -1,9 +1,11 @@
-package com.example.hipporouter;
+package com.example.hipporouter.pager;
 
 import android.view.View;
 
+import com.example.hipporouter.R;
 import com.example.hipporouter.pager.base.BaseActivity;
 import com.example.library.router.router.impl.activity.ActivityRequest;
+import com.example.library.annotation.RouterMap;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -26,8 +28,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         .open();
                 break;
             case R.id.btn_fragment:
-                ActivityRequest.from(this,"fragment://content")
-                        .open();
+//                ActivityRequest.from(this,"activity://main/kevin/123456")
+//                        .open();
                 break;
         }
     }

@@ -14,8 +14,6 @@ public interface IRouter<P extends Request> {
 
     Map<String, Class<?>> ROUTER_TABLE = new HashMap<>();
 
-    void init(RouterInitializer initializer);
-
     boolean canHandle(String url);
 
     boolean handle(P request);

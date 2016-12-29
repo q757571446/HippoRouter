@@ -1,4 +1,4 @@
-package com.example.hipporouter.pager;
+package com.example.hipporouter.pager.fragment;
 
 import android.view.View;
 

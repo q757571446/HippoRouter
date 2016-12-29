@@ -1,4 +1,4 @@
-package com.example.module.annotation;
+package com.example.library.annotation;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
