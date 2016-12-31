@@ -1,1 +1,1 @@
-include ':app', ':library_router', ':module_annotation', ':module_compile'
+include ':app', ':hipporouter', ':hipporouter-annotation', ':hipporouter-compile'

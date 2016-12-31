@@ -9,23 +9,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.hipporouter.pager.MainActivity">
+    tools:context="com.hippo.router.sample.pager.MainActivity">
 
     <TextView
         android:gravity="center"
         android:text="MainActivity"
+        android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
     <Button
-        android:id="@+id/btn_activity"
-        android:text="Activity"
+        android:id="@+id/btn_open_login_pager"
+        android:text="openLoginPager"
+        android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_fragment"
-        android:text="Fragment"
+        android:id="@+id/btn_open_register_pager"
+        android:text="openRegisterPager"
+        android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

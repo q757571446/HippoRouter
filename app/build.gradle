@@ -30,6 +30,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile libSupportAppcompat
 
-    compile project(':library_router')
-    apt project(':module_compile')
+    compile project(':hipporouter')
+    apt project(':hipporouter-compile')
 }
