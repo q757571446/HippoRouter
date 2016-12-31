@@ -25,32 +25,31 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
 
     static final String TAG = "ActivityRouter";
     public static final String ACTIVITY_KEY_URL = "key_and_activity_router_url";
-    protected Context mContext;
+
 
     @Override
-    protected String canHandle() {
-        return "activity";
+    protected boolean canHandle(String scheme) {
+        return scheme.equals("activity");
     }
 
     @Override
     protected boolean handle(ActivityRequest request, Map.Entry<String, Class<? extends Activity>> entry) {
-        mContext = request.getContext();
         Intent intent = getIntent(request, entry);
-        mContext.startActivity(intent);
-        if (request.getAnimationIn() != -1 && request.getAnimationOut() != -1 && mContext instanceof Activity) {
-            ((Activity) mContext).overridePendingTransition(request.getAnimationIn(),request.getAnimationOut());
+        request.getContext().startActivity(intent);
+        if (request.getAnimationIn() != -1 && request.getAnimationOut() != -1 && request.getContext() instanceof Activity) {
+            ((Activity) request.getContext()).overridePendingTransition(request.getAnimationIn(),request.getAnimationOut());
         }
         return true;
     }
 
     protected Intent getIntent(ActivityRequest request, Map.Entry<String, Class<? extends Activity>> entry) {
-        Intent intent = new Intent(mContext, entry.getValue());
+        Intent intent = new Intent(request.getContext(), entry.getValue());
         //find the key value in the path
         intent = setKeyValueInThePath(entry.getKey(), request.getUrl(), intent);
         intent = setOptionParams(request.getUrl(), intent);
         intent = setExtras(request.getBundle(), intent);
         intent.putExtra(ACTIVITY_KEY_URL, request.getUrl());
-        if (mContext instanceof Application) {
+        if (request.getContext() instanceof Application) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | request.getFlags());
         } else {
             intent.setFlags(request.getFlags());
@@ -163,4 +162,6 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
         }
         return intent;
     }
+
+
 }

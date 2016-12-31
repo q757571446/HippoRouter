@@ -27,9 +27,11 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
     static final String TAG = "FragmentRouter";
     public static final String FRAGMENT_KEY_URL = "key_and_fragment_router_url";
 
+
+
     @Override
-    protected String canHandle() {
-        return "fragment";
+    protected boolean canHandle(String scheme) {
+        return scheme.equals("fragment");
     }
 
     @Override

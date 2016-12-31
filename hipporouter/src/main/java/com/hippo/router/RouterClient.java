@@ -65,16 +65,16 @@ public class RouterClient {
     }
 
     public synchronized boolean process(IRequest request) {
-        IRouter router = getRouter(request.getUrl());
+        IRouter router = getRouter(request);
         return router.handle(request);
     }
 
-    private synchronized IRouter getRouter(String url) {
+    private synchronized IRouter getRouter(IRequest request) {
         for (IRouter router : mRouters) {
-            if (router.canHandle(url)) {
+            if (router.canHandle(request)) {
                 return router;
             }
         }
-        throw new IllegalArgumentException(String.format("cannot find router to resolve: %s", url));
+        throw new IllegalArgumentException(String.format("cannot find router to resolve: %s", request.getUrl()));
     }
 }

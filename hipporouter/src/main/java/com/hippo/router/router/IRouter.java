@@ -11,7 +11,7 @@ public interface IRouter<P extends IRequest> {
 
     Map<String, Class<?>> ROUTER_TABLE = new HashMap<>();
 
-    boolean canHandle(String url);
+    boolean canHandle(P request);
 
     boolean handle(P request);
 }

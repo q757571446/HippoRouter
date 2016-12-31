@@ -37,6 +37,7 @@ public class RegisterFragment extends BaseFragment{
     protected void initWidget(View root) {
         super.initWidget(root);
 
+
         EditText edtRouter = (EditText) root.findViewById(R.id.edt_router);
         EditText edtUsername = (EditText) root.findViewById(R.id.edt_username);
         EditText edtPassword = (EditText) root.findViewById(R.id.edt_password);

@@ -12,13 +12,12 @@ import java.util.List;
 import java.util.Map;
 import static com.hippo.router.utils.UrlUtils.getHost;
 import static com.hippo.router.utils.UrlUtils.getPathSegments;
-import static com.hippo.router.utils.UrlUtils.getScheme;
 import static com.hippo.router.annotation.uri.RouterUtils.getGenerateClass;
+import static com.hippo.router.utils.UrlUtils.getScheme;
 
 public abstract class Router<T,P extends Request> implements IRouter<P> {
 
-    protected abstract String canHandle();
-
+    protected abstract boolean canHandle(String scheme);
     protected abstract boolean handle(P request, Map.Entry<String, Class<? extends T>> entry);
 
     public Router() {
@@ -30,16 +29,17 @@ public abstract class Router<T,P extends Request> implements IRouter<P> {
         for (Map.Entry<String, Class<?>> entry : map.entrySet()) {
             String url = entry.getKey();
             Class<?> clazz = entry.getValue();
-            if (canHandle(url)) {
+            if (canHandle(getScheme(url))) {
                 tables.put(url, (Class<? extends T>) clazz);
             }
         }
         return tables;
     }
-    
+
+
     @Override
-    public final boolean canHandle(String url) {
-        return TextUtils.equals(getScheme(url), canHandle());
+    public boolean canHandle(P request) {
+        return canHandle(request.getScheme());
     }
 
     @Override
