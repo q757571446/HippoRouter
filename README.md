@@ -2,12 +2,12 @@
 A router to solve rpc communication
 ## Example
 ### Activity
-#### 使用
+#### Use
 ```java
  ActivityRequest.from(this, "activity://example/:kevin/:123455")
                 .open();
 ```
-#### 注册
+#### Register
 ```java
 @RouterMap("activity://example/:s{username}/:i{password}")
 public class ExampleActivity extends Activity{
@@ -26,14 +26,14 @@ public class ExampleActivity extends Activity{
 }
 ```
 ### Fragment
-#### 使用
+#### Use
 ```java
 FragmentRequest.from(getFragmentManager(), "fragment://example")
         .withParams("username","kevin")
         .withParams("password",123456)
         .attach(R.id.container);
 ```
-#### 注册
+#### Register
 ```java
 @RouterMap("fragment://example")
 public class ExampleFragment extends Fragment{
@@ -57,5 +57,7 @@ public class ExampleFragment extends Fragment{
     }
 }
 ```
+
+## Extend
 
 ## Installation
