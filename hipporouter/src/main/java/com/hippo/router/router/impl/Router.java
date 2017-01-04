@@ -10,9 +10,10 @@ import com.hippo.router.router.IRouter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.hippo.router.compile.utils.RouterUtils.getGenerateClass;
 import static com.hippo.router.utils.UrlUtils.getHost;
 import static com.hippo.router.utils.UrlUtils.getPathSegments;
-import static com.hippo.router.annotation.uri.RouterUtils.getGenerateClass;
 import static com.hippo.router.utils.UrlUtils.getScheme;
 
 public abstract class Router<T,P extends Request> implements IRouter<P> {

@@ -2,16 +2,10 @@ package com.hippo.router.sample.pager;
 
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.hippo.router.RouterClient;
-import com.hippo.router.annotation.RouterMap;
-import com.hippo.router.factory.RouterFactory;
-import com.hippo.router.router.impl.Router;
+import com.hippo.router.compile.RouterMap;
 import com.hippo.router.sample.R;
 import com.hippo.router.sample.pager.base.BaseFragment;
-
-import java.util.Map;
 
 import static com.hippo.router.router.impl.fragment.FragmentRouter.FRAGMENT_KEY_URL;
 

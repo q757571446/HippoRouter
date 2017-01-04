@@ -90,11 +90,10 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                             int value = Integer.parseInt(val);
                             intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析整形类型失败 " + val, e);
+                            Log.e(TAG, "cannot parse integer " + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {
-                                //如果是在release情况下则给一个默认值
                                 intent.putExtra(key, 0);
                             }
                         }
@@ -105,7 +104,7 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                             float value = Float.parseFloat(val);
                             intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析浮点类型失败 " + val, e);
+                            Log.e(TAG, "cannot parse float " + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {
@@ -119,7 +118,7 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                             long value = Long.parseLong(val);
                             intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析长整形失败 " + val, e);
+                            Log.e(TAG, "cannot parse long " + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {
@@ -132,7 +131,7 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                             double value = Double.parseDouble(val);
                             intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析double类型失败 " + val, e);
+                            Log.e(TAG, "cannot parse double " + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {
@@ -145,7 +144,7 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
                             char value = val.charAt(0);
                             intent.putExtra(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析Character类型失败" + val, e);
+                            Log.e(TAG, "cannot parse character" + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {

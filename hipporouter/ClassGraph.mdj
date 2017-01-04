@@ -610,7 +610,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+getUrl(out url: String)",
+											"text": "+getUrl(): String",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1482,7 +1482,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+getUrl(out url: String)",
+											"text": "+getUrl(): String",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -8849,7 +8849,7 @@
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
-									"direction": "out"
+									"direction": "return"
 								}
 							],
 							"concurrency": "sequential",
@@ -9412,7 +9412,7 @@
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
-									"direction": "out"
+									"direction": "return"
 								}
 							],
 							"concurrency": "sequential",

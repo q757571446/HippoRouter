@@ -1,1 +1,1 @@
-include ':app', ':hipporouter', ':hipporouter-annotation', ':hipporouter-compile'
+include ':app', ':hipporouter', ':hipporouter-compile'

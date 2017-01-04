@@ -1,4 +1,4 @@
-package com.hippo.router.annotation.uri;
+package com.hippo.router.compile.utils;
 
 
 import java.net.MalformedURLException;

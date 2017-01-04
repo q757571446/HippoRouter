@@ -1,7 +1,8 @@
 package com.hippo.router.sample.pager;
 
 import android.widget.TextView;
-import com.hippo.router.annotation.RouterMap;
+
+import com.hippo.router.compile.RouterMap;
 import com.hippo.router.router.impl.fragment.FragmentRequest;
 import com.hippo.router.sample.R;
 import com.hippo.router.sample.pager.base.BaseActivity;

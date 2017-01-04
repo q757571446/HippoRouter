@@ -1,6 +1,5 @@
 package com.hippo.router.compile;
 
-import com.hippo.router.annotation.RouterMap;
 import com.hippo.router.compile.exception.TargetErrorException;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
@@ -29,8 +28,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
 
-import static com.hippo.router.annotation.uri.RouterUtils.getGenerateClassName;
-import static com.hippo.router.annotation.uri.RouterUtils.getGeneratePackageName;
+import static com.hippo.router.compile.utils.RouterUtils.getGenerateClassName;
+import static com.hippo.router.compile.utils.RouterUtils.getGeneratePackageName;
 
 
 @AutoService(Processor.class)

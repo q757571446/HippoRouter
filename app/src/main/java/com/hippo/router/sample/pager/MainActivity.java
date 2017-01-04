@@ -1,14 +1,10 @@
 package com.hippo.router.sample.pager;
 
+import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
-
-import com.hippo.router.router.impl.fragment.FragmentRequest;
 import com.hippo.router.sample.R;
 import com.hippo.router.sample.pager.base.BaseActivity;
 import com.hippo.router.router.impl.activity.ActivityRequest;
-
-import static com.hippo.router.router.impl.activity.ActivityRouter.ACTIVITY_KEY_URL;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -26,6 +22,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        ActivityRequest.from(this, "activity://wrap")
+                .open();
+
         switch (v.getId()) {
             case R.id.btn_open_login_pager:
                 ActivityRequest.from(this,"activity://wrap/:LoginPager")

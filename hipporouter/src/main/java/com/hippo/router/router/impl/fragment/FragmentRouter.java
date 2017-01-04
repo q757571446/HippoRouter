@@ -27,8 +27,6 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
     static final String TAG = "FragmentRouter";
     public static final String FRAGMENT_KEY_URL = "key_and_fragment_router_url";
 
-
-
     @Override
     protected boolean canHandle(String scheme) {
         return scheme.equals("fragment");
@@ -95,11 +93,10 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
                             int value = Integer.parseInt(val);
                             bundle.putInt(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析整形类型失败 " + val, e);
+                            Log.e(TAG, "cannot parse integer " + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {
-                                //如果是在release情况下则给一个默认值
                                 bundle.putInt(key, 0);
                             }
                         }
@@ -110,7 +107,7 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
                             float value = Float.parseFloat(val);
                             bundle.putFloat(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析浮点类型失败 " + val, e);
+                            Log.e(TAG, "cannot parse float " + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {
@@ -124,7 +121,7 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
                             long value = Long.parseLong(val);
                             bundle.putLong(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析长整形失败 " + val, e);
+                            Log.e(TAG, "cannot parse long " + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {
@@ -137,7 +134,7 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
                             double value = Double.parseDouble(val);
                             bundle.putDouble(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析double类型失败 " + val, e);
+                            Log.e(TAG, "cannot parse double " + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {
@@ -150,7 +147,7 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
                             char value = val.charAt(0);
                             bundle.putChar(key, value);
                         } catch (Exception e) {
-                            Log.e(TAG, "解析Character类型失败" + val, e);
+                            Log.e(TAG, "cannot parse character" + val, e);
                             if (BuildConfig.DEBUG) {
                                 throw new InvalidValueTypeException(givenUrl, val);
                             } else {
