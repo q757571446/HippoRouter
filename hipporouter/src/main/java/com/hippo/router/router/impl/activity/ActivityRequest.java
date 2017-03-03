@@ -134,5 +134,6 @@ public class ActivityRequest extends Request {
             ActivityRequest request = new ActivityRequest(mContext, mFlags, mBundle, mInAnimation, mOutAnimation, mUrl);
             return RouterClient.getSingleton().process(request);
         }
+
     }
 }

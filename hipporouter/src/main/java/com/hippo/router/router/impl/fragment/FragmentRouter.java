@@ -27,10 +27,6 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
     static final String TAG = "FragmentRouter";
     public static final String FRAGMENT_KEY_URL = "key_and_fragment_router_url";
 
-    @Override
-    protected boolean canHandle(String scheme) {
-        return scheme.equals("fragment");
-    }
 
     @Override
     protected boolean handle(FragmentRequest request, Map.Entry<String, Class<? extends Fragment>> entry) {
@@ -56,7 +52,7 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
         bundle = setKeyValueInThePath(entry.getKey(), request.getUrl(), bundle);
         bundle = setOptionParams(request.getUrl(), bundle);
         bundle = setExtras(request.getBundle(), bundle);
-        bundle.putString(FRAGMENT_KEY_URL, request.getUrl());
+        bundle.putString(FRAGMENT_KEY_URL, entry.getKey());
         return bundle;
     }
 
@@ -82,9 +78,8 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
             if (seg.startsWith(":")) {
                 int indexOfLeft = seg.indexOf("{");
                 int indexOfRight = seg.indexOf("}");
-                int indexOfValue = inf.indexOf(":");
                 String key = seg.substring(indexOfLeft + 1, indexOfRight);
-                String val = inf.substring(indexOfValue+1);
+                String val = inf;
                 char typeChar = seg.charAt(1);
                 switch (typeChar) {
                     //interger type

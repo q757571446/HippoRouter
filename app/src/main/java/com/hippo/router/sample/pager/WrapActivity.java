@@ -2,7 +2,7 @@ package com.hippo.router.sample.pager;
 
 import android.widget.TextView;
 
-import com.hippo.router.compile.RouterMap;
+import com.hippo.router.compile.Route;
 import com.hippo.router.router.impl.fragment.FragmentRequest;
 import com.hippo.router.sample.R;
 import com.hippo.router.sample.pager.base.BaseActivity;
@@ -10,7 +10,7 @@ import com.hippo.router.sample.pager.base.BaseActivity;
 /**
  * Created by Kevin on 2016/12/31.
  */
-@RouterMap("activity://wrap/:s{title}")
+@Route("activity://wrap/:s{title}")
 public class WrapActivity extends BaseActivity{
 
     private String mContentPager;

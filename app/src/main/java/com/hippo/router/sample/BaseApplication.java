@@ -3,10 +3,10 @@ package com.hippo.router.sample;
 import android.app.Activity;
 import android.app.Application;
 
-import com.hippo.router.sample.pager.MainActivity;
 import com.hippo.router.RouterClient;
 import com.hippo.router.factory.impl.ActivityRouterFactory;
-
+import com.hippo.router.sample.pager.LaunchActivity;
+import com.hippo.router.sample.pager.MainActivity;
 
 import java.util.Map;
 
@@ -27,4 +27,5 @@ public class BaseApplication extends Application{
         });
 
     }
+
 }

@@ -1,10 +1,10 @@
 # HippoRouter
-A router to solve rpc communication
+Router for android
 ## Example
 ### Activity
 #### Use
 ```java
- ActivityRequest.from(this, "activity://example/:kevin/:123455")
+ ActivityRequest.from(this, "activity://example/kevin/123455")
                 .open();
 ```
 #### Register
@@ -58,7 +58,8 @@ public class ExampleFragment extends Fragment{
 }
 ```
 
-## Extend
+## Intercept
+
 
 ## Installation
 

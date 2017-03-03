@@ -3,7 +3,7 @@ package com.hippo.router.sample.pager;
 import android.view.View;
 import android.widget.EditText;
 
-import com.hippo.router.compile.RouterMap;
+import com.hippo.router.compile.Route;
 import com.hippo.router.sample.R;
 import com.hippo.router.sample.pager.base.BaseFragment;
 
@@ -12,7 +12,7 @@ import static com.hippo.router.router.impl.fragment.FragmentRouter.FRAGMENT_KEY_
 /**
  * Created by Kevin on 2016/12/31.
  */
-@RouterMap("fragment://register")
+@Route("fragment://register")
 public class RegisterFragment extends BaseFragment{
 
     private String username;

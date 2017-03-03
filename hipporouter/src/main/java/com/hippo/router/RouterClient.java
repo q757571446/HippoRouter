@@ -1,10 +1,12 @@
 package com.hippo.router;
 
+import android.util.Log;
+
 import com.hippo.router.factory.RouterFactory;
+import com.hippo.router.factory.RouterInitializer;
 import com.hippo.router.factory.impl.ActivityRouterFactory;
 import com.hippo.router.factory.impl.FragmentRouterFactory;
 import com.hippo.router.router.IRequest;
-import com.hippo.router.router.impl.Request;
 import com.hippo.router.router.IRouter;
 import com.hippo.router.router.impl.activity.ActivityRouter;
 import com.hippo.router.router.impl.fragment.FragmentRouter;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.hippo.router.compile.utils.RouterUtils.GENERATE_CLASS_PATH;
 import static com.hippo.router.router.IRouter.ROUTER_TABLE;
 
 /**
@@ -20,10 +23,23 @@ import static com.hippo.router.router.IRouter.ROUTER_TABLE;
  */
 
 public class RouterClient {
+    private static final String TAG = "RouterClient";
 
-    static final RouterClient singleton = new RouterClient();
 
     static List<IRouter> mRouters ;
+
+    static {
+        //register by apt
+        try {
+            RouterInitializer initializer = (RouterInitializer) Class.forName(GENERATE_CLASS_PATH).newInstance();
+            initializer.initialize(ROUTER_TABLE);
+        } catch (Exception e) {
+            Log.i(TAG,"cannot find routerinitializer");
+        }
+    }
+
+    static RouterClient singleton;
+
 
     private RouterClient(){
         mRouters = new LinkedList<>();
@@ -33,6 +49,9 @@ public class RouterClient {
     }
 
     public static RouterClient getSingleton(){
+        if (singleton == null) {
+            singleton = new RouterClient();
+        }
         return singleton;
     }
 
@@ -59,6 +78,7 @@ public class RouterClient {
     }
 
     public synchronized void registerRouter(RouterFactory factory) {
+        //register by application
         IRouter router = factory.buildInstance();
         factory.initialize(ROUTER_TABLE);
         addRouter(router);

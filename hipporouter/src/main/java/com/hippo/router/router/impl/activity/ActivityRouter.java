@@ -28,11 +28,6 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
 
 
     @Override
-    protected boolean canHandle(String scheme) {
-        return scheme.equals("activity");
-    }
-
-    @Override
     protected boolean handle(ActivityRequest request, Map.Entry<String, Class<? extends Activity>> entry) {
         Intent intent = getIntent(request, entry);
         request.getContext().startActivity(intent);
@@ -48,7 +43,7 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
         intent = setKeyValueInThePath(entry.getKey(), request.getUrl(), intent);
         intent = setOptionParams(request.getUrl(), intent);
         intent = setExtras(request.getBundle(), intent);
-        intent.putExtra(ACTIVITY_KEY_URL, request.getUrl());
+        intent.putExtra(ACTIVITY_KEY_URL, entry.getKey());
         if (request.getContext() instanceof Application) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | request.getFlags());
         } else {
@@ -77,11 +72,23 @@ public class ActivityRouter extends Router<Activity,ActivityRequest> {
             String seg = routePathSegs.get(i);
             String inf = givenPathSegs.get(i);
             if (seg.startsWith(":")) {
+                String key;
+
                 int indexOfLeft = seg.indexOf("{");
                 int indexOfRight = seg.indexOf("}");
-                int indexOfValue = inf.indexOf(":");
-                String key = seg.substring(indexOfLeft + 1, indexOfRight);
-                String val = inf.substring(indexOfValue+1);
+                if(indexOfLeft == -1 ^ indexOfRight == -1){
+                    //true，false
+                    //false, true
+                    throw new IllegalArgumentException("cannot resolve the route you register >>>"+routeUrl);
+                }else if(indexOfLeft == -1 && indexOfRight == -1){
+                    key = seg.substring(0).trim();
+                    //true true
+                }else{
+                    //false false
+                    key = seg.substring(indexOfLeft + 1, indexOfRight).trim();
+                }
+                String val = inf;
+
                 char typeChar = seg.charAt(1);
                 switch (typeChar) {
                     //interger type

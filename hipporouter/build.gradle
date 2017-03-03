@@ -26,4 +26,4 @@ dependencies {
     compile project(':hipporouter-compile')
 }
 
-apply from: rootProject.file('gradle/maven-upload.gradle')
+//apply from: rootProject.file('gradle/maven-upload.gradle')

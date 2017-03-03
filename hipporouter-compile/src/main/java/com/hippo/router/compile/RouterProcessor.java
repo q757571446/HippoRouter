@@ -28,9 +28,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
 
-import static com.hippo.router.compile.utils.RouterUtils.getGenerateClassName;
-import static com.hippo.router.compile.utils.RouterUtils.getGeneratePackageName;
-
+import static com.hippo.router.compile.utils.RouterUtils.GENERATE_CLASS_NAME;
+import static com.hippo.router.compile.utils.RouterUtils.GENERATE_PACKAGE_NAME;
 
 @AutoService(Processor.class)
 public class RouterProcessor extends AbstractProcessor{
@@ -52,7 +51,7 @@ public class RouterProcessor extends AbstractProcessor{
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
-        return Collections.singleton(RouterMap.class.getCanonicalName());
+        return Collections.singleton(Route.class.getCanonicalName());
     }
 
     @Override
@@ -62,7 +61,7 @@ public class RouterProcessor extends AbstractProcessor{
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment env) {
-        Set<? extends Element> elements = env.getElementsAnnotatedWith(RouterMap.class);
+        Set<? extends Element> elements = env.getElementsAnnotatedWith(Route.class);
 
         try{
             if (env.processingOver()) {
@@ -81,10 +80,10 @@ public class RouterProcessor extends AbstractProcessor{
             }
 
             if (!elements.isEmpty()) {
-                mMessager.printMessage(Diagnostic.Kind.NOTE,"processing RouterMap class build...");
+                mMessager.printMessage(Diagnostic.Kind.NOTE,"processing Route class build...");
                 generateInitializer(elements);
             } else {
-                mMessager.printMessage(Diagnostic.Kind.WARNING, "No RouterMap annotations found");
+                mMessager.printMessage(Diagnostic.Kind.WARNING, "No Route annotations found");
             }
 
             writerRoundDone = true;
@@ -98,16 +97,6 @@ public class RouterProcessor extends AbstractProcessor{
 
 
     private void generateInitializer(Set<? extends Element> elements) throws IOException {
-        for (Element element : elements) {
-            writeInitializer((TypeElement) element);
-        }
-    }
-
-    private void writeInitializer(TypeElement element) throws IOException {
-        if(element.getKind() != ElementKind.CLASS){
-            throw new TargetErrorException();
-        }
-
         TypeElement initializer = elementUtils.getTypeElement("com.hippo.router.factory.RouterInitializer");
         ParameterizedTypeName superInterface = ParameterizedTypeName.get(ClassName.get(initializer), ClassName.OBJECT);
 
@@ -122,20 +111,28 @@ public class RouterProcessor extends AbstractProcessor{
                 .addModifiers(Modifier.PUBLIC)
                 .addParameter(tables);
 
-        RouterMap router = element.getAnnotation(RouterMap.class);//get annotation in activity
-        String routerUrl = router.value();//get routerurl
-        if(routerUrl != null){
-            methodBuilder.addStatement("tables.put($S, $T.class)", routerUrl, ClassName.get(element));
+        for(Element element : elements){
+            if(element.getKind() != ElementKind.CLASS){
+                throw new TargetErrorException();
+            }
+            String router = element.getAnnotation(Route.class).value();//get annotation in activity
+
+            ClassName clazz = ClassName.get((TypeElement)element);
+            methodBuilder.addStatement("tables.put($S, $T.class)", router, clazz);
         }
 
-        String generateClassName = getGenerateClassName(routerUrl);
-        TypeSpec clazz = TypeSpec.classBuilder(generateClassName)
+
+        TypeSpec clazz = TypeSpec.classBuilder(GENERATE_CLASS_NAME)
                 .addSuperinterface(superInterface)
                 .addModifiers(Modifier.PUBLIC)
                 .addMethod(methodBuilder.build())
                 .build();
-        JavaFile javaFile = JavaFile.builder(getGeneratePackageName(routerUrl), clazz).build();
+        JavaFile javaFile = JavaFile.builder(GENERATE_PACKAGE_NAME, clazz).build();
         javaFile.writeTo(mFiler);
+
     }
+
+
+
 
 }
