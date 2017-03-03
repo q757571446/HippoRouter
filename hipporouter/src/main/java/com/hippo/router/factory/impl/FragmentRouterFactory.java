@@ -1,7 +1,7 @@
 package com.hippo.router.factory.impl;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import com.hippo.router.factory.RouterFactory;
 import com.hippo.router.router.impl.fragment.FragmentRequest;
 import com.hippo.router.router.impl.fragment.FragmentRouter;

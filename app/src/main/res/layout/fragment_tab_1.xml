@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Menu"
+        android:id="@+id/one"
+        android:text="activity://one?id=7865&amp;updateTime=53789&amp;web=true&amp;other=i+am+lost"/>
+
+    <TextView
+        style="@style/Menu"
+        android:id="@+id/two"
+        android:text="activity://two?id=53789&amp;o=you+are+best"/>
+
+    <TextView
+        style="@style/Menu"
+        android:id="@+id/three"
+        android:text="activity://three/admin/123456"/>
+
+
+    <TextView
+        style="@style/Menu"
+        android:id="@+id/four"
+        android:text="activity://four/admin/123456"/>
+
+    <TextView
+        style="@style/Menu"
+        android:id="@+id/five"
+        android:text="activity://five/admin/123456"/>
+
+    <TextView
+        style="@style/Menu"
+        android:id="@+id/six"
+        android:text="activity://six/admin/test/123456"/>
+
+    <TextView
+        style="@style/Menu"
+        android:id="@+id/seven"
+        android:text="activity://seven/admin/hippo/router/12345/0.11/12312/0.33/a"/>
+
+    <TextView
+        style="@style/Menu"
+        android:id="@+id/eight"
+        android:text="activity://eight/admin/hippo/router/12345/0.11/12312/0.33/a"/>
+
+    <TextView
+        style="@style/Menu"
+        android:id="@+id/nine"
+        android:text="activity://nine/admin/hippo/router/12345/0.11/12312/0.33/a"/>
+
+</LinearLayout>

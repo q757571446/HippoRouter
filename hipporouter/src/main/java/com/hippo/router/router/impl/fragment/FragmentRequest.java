@@ -1,7 +1,6 @@
 package com.hippo.router.router.impl.fragment;
 
-import android.app.Activity;
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -110,11 +109,12 @@ public class FragmentRequest extends Request{
             return this;
         }
 
-        public Builder withAnimation(int inAnimation, int outAnimation){
-            mInAnimation = inAnimation;
-            mOutAnimation = outAnimation;
-            return this;
-        }
+
+//        public Builder withAnimation(int inAnimation, int outAnimation){
+//            mInAnimation = inAnimation;
+//            mOutAnimation = outAnimation;
+//            return this;
+//        }
 
         public boolean attach(int attachViewId) {
             FragmentRequest request = new FragmentRequest(attachViewId,mFragmentManager, mBundle, mInAnimation, mOutAnimation, mUrl);

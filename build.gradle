@@ -45,5 +45,6 @@ ext {
     javaTargetCompatibility = JavaVersion.VERSION_1_8
 
     libSupportAppcompat = "com.android.support:appcompat-v7:${supportVersion}"
-
+    libSupportDesign = "com.android.support:design:${supportVersion}"
+    libSupportV4 = "com.android.support:support-v4:${supportVersion}"
 }

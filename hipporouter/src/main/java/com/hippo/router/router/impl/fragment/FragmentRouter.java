@@ -1,10 +1,8 @@
 package com.hippo.router.router.impl.fragment;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.hippo.router.BuildConfig;
@@ -37,8 +35,8 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
             attachFragment.setArguments(bundle);
             request.getFragmentManager()
                     .beginTransaction()
+//                    .setCustomAnimations(request.getAnimationIn(),request.getAnimationOut())
                     .add(attachId, attachFragment)
-                    .setCustomAnimations(request.getAnimationIn(), request.getAnimationOut())
                     .commit();
             return true;
         } catch (Exception e) {
@@ -52,7 +50,7 @@ public class FragmentRouter extends Router<Fragment,FragmentRequest>{
         bundle = setKeyValueInThePath(entry.getKey(), request.getUrl(), bundle);
         bundle = setOptionParams(request.getUrl(), bundle);
         bundle = setExtras(request.getBundle(), bundle);
-        bundle.putString(FRAGMENT_KEY_URL, entry.getKey());
+        bundle.putString(FRAGMENT_KEY_URL, request.getUrl());
         return bundle;
     }
 

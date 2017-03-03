@@ -24,6 +24,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':hipporouter-compile')
+    compile 'com.android.support:support-v4:24.1.1'
 }
 
 //apply from: rootProject.file('gradle/maven-upload.gradle')

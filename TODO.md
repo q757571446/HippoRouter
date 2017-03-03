@@ -1,2 +1,4 @@
 1. 提供一个全局路由调度失败的回调
-2. activity://user/:s{username}, activity://user/:i{username}匹配谁的问题
+2. 提供openForResult
+3. 提供外部扩展scheme的权限
+4. 补充异常，集合类异常等

@@ -9,7 +9,7 @@ Router for android
 ```
 #### Register
 ```java
-@RouterMap("activity://example/:s{username}/:i{password}")
+@Route("activity://example/:s{username}/:i{password}")
 public class ExampleActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ FragmentRequest.from(getFragmentManager(), "fragment://example")
 ```
 #### Register
 ```java
-@RouterMap("fragment://example")
+@Route("fragment://example")
 public class ExampleFragment extends Fragment{
 
     @Nullable

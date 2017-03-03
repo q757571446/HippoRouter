@@ -1,5 +1,7 @@
 package com.hippo.router.router.impl;
 
+import android.net.Uri;
+
 import com.hippo.router.router.IRequest;
 import com.hippo.router.utils.UrlUtils;
 
@@ -27,6 +29,7 @@ public class Request implements IRequest {
         mPath = UrlUtils.getPathSegments(url);
         mQueryParameters = UrlUtils.getParameters(url);
     }
+
 
     @Override
     public String getUrl() {

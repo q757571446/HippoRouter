@@ -1,5 +1,7 @@
 package com.hippo.router.sample.pager;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.TextView;
 
 import com.hippo.router.compile.Route;
@@ -10,7 +12,7 @@ import com.hippo.router.sample.pager.base.BaseActivity;
 /**
  * Created by Kevin on 2016/12/31.
  */
-@Route("activity://wrap/:s{title}")
+@Route("activity://wrap")
 public class WrapActivity extends BaseActivity{
 
     private String mContentPager;
@@ -25,7 +27,6 @@ public class WrapActivity extends BaseActivity{
     protected void initData() {
         super.initData();
 
-        mContentTitle = getIntent().getStringExtra("title");
         mContentPager = getIntent().getStringExtra("content");
     }
 
@@ -33,10 +34,38 @@ public class WrapActivity extends BaseActivity{
     protected void initWidget() {
         super.initWidget();
 
-        ((TextView) findViewById(R.id.txt_title)).setText(mContentTitle);
-        FragmentRequest.from(getFragmentManager(), mContentPager)
-                .withParams("username","kevin")
-                .withParams("password","123456")
-                .attach(R.id.container);
+        int viewId = getIntent().getIntExtra("viewId",-1);
+        switch (viewId){
+            case R.id.one:
+                FragmentRequest.from(getSupportFragmentManager(), mContentPager)
+                        .attach(R.id.container);
+                break;
+            case R.id.two:
+                FragmentRequest.from(getSupportFragmentManager(), mContentPager)
+                        .attach(R.id.container);
+                break;
+            case R.id.three:
+                FragmentRequest.from(getSupportFragmentManager(), mContentPager)
+                        .attach(R.id.container);
+                break;
+            case R.id.four:
+                FragmentRequest.from(getSupportFragmentManager(), mContentPager)
+                        .attach(R.id.container);
+                break;
+            case R.id.five:
+                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.mipmap.xiaoxing);
+                FragmentRequest.from(getSupportFragmentManager(), mContentPager)
+                        .withParams("bitmap",bitmap)
+                        .attach(R.id.container);
+                break;
+            case R.id.six:
+                FragmentRequest.from(getSupportFragmentManager(), mContentPager)
+                        .attach(R.id.container);
+                break;
+            case R.id.seven:
+                FragmentRequest.from(getSupportFragmentManager(), mContentPager)
+                        .attach(R.id.container);
+                break;
+        }
     }
 }

@@ -49,6 +49,7 @@ public class ActivityRequest extends Request {
         return mContext;
     }
 
+
     public static Builder from(Context from, String to) {
         if (from == null) {
             throw new IllegalArgumentException("Context cannot be null");

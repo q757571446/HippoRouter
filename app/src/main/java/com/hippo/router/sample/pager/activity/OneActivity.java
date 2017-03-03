@@ -1,4 +1,4 @@
-package com.hippo.router.sample.pager;
+package com.hippo.router.sample.pager.activity;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -13,7 +13,7 @@ import java.util.Set;
  * Created by kevinhao on 2017/3/2.
  */
 //register router in application
-public class MainActivity extends ExtrasActivity{
+public class OneActivity extends ExtrasActivity{
 
 
 }
