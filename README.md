@@ -1,5 +1,7 @@
 # HippoRouter
-Router for android
+Android端URL路由解决方案，用于解决混合开发中路由跳转问题。采用vue-router的规范解决带参等业务场景
+![](image/example.gif)
+
 ## Example
 ### Activity
 #### Use
