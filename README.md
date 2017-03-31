@@ -72,6 +72,7 @@ buildscript {
         jcenter()
     }
     dependencies {
+        ...
         //add the plugin of apt
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
@@ -79,18 +80,18 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        ...
         //add the maven repository
-        maven{
-            url 'https://codingboy.bintray.com/maven'
-        }
+        maven { url 'https://hippoband.bintray.com/maven' }
     }
 }
 ```
 2. in module `build.gradle`
 ```
+...
 apply plugin: 'com.neenbedankt.android-apt'
 dependencies {
+    ...
     compile 'com.hippo.router:hipporouter:0.0.1'
     apt 'com.hippo.router:hipporouter-compile:0.0.1'
 }

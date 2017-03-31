@@ -55,19 +55,15 @@ public abstract class Router<T,P extends Request> implements IRouter<P> {
     }
 
     private String getWrapperUrl(String oldRoute){
-        //对url中带:的部分进行包装，用于处理简写形式/user/:username
         StringBuffer newPath = new StringBuffer();
         for(String oldSeg : getPathSegments(oldRoute)){
             if(oldSeg.startsWith(":")){
-                //携带值的path
                 int indexOfColo = oldSeg.indexOf(":");
                 int indexOfLeft = oldSeg.indexOf("{");
                 int indexOfRight = oldSeg.indexOf("}");
                 if(indexOfLeft == -1 ^ indexOfRight == -1){
-                    //只有一边有括号，不符合规范
                     throw new IllegalArgumentException("the router you registered"+oldRoute+"lack {}");
                 }else if(indexOfLeft == -1 && indexOfRight == -1){
-                    //未包装括号的，包装括号
                     String newSeg = new StringBuffer()
                             .append(":")
                             .append("{")
@@ -77,12 +73,10 @@ public abstract class Router<T,P extends Request> implements IRouter<P> {
                     newPath.append("/")
                             .append(newSeg);
                 }else{
-                    //已经包装括号的，保持原样
                     newPath.append("/")
                             .append(oldSeg);
                 }
             }else{
-                //非携带值的path，保持原样
                 newPath.append("/")
                         .append(oldSeg);
             }
