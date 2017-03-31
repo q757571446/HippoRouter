@@ -32,6 +32,8 @@ dependencies {
     compile libSupportDesign
     compile libSupportV4
 
+//    compile 'com.github.q757571446:hipporouter:v0.0.1'
+//    compile 'com.github.q757571446:hipporouter-compile:v0.0.1'
     compile project(':hipporouter')
     apt project(':hipporouter-compile')
     //    compile 'com.hippo.router:hipporouter:0.0.1'
